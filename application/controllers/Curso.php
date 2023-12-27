@@ -6,12 +6,17 @@ class Curso extends CI_Controller {
 		parent::__construct();
 		$this->load->database('default');
 		$this->load->library('session');
+		//$this->load->library('encryption');
 		$this->load->model('CursoModel');
 	}
 
 	public function index(){
+		$arrPais = $this->CursoModel->getPais();
+
 		//get Departamento
-		$arrDepartamento = $this->CursoModel->getDepartamento();
+		if(!isset($_SESSION['departamento'])) {
+			$_SESSION['departamento'] = $this->CursoModel->getDepartamento();
+		}
 
 		//get provincia
 		if(!isset($_SESSION['provincia'])) {
@@ -70,11 +75,37 @@ class Curso extends CI_Controller {
 
 		$this->load->view('Curso/Registro',
 			array(
-				'arrDepartamento' => $arrDepartamento,
+				'arrPais' => $arrPais,
 				'client' => $client,
 				'formToken' => $formToken
 			)
 		);
+	}
+
+	function searchForIdDepartamento() {
+		$id = $this->input->post('ID_Pais');
+		if(isset($_SESSION['departamento']) && $_SESSION['departamento']['status']=='success') {
+			$arrDepartamento = array();
+			foreach ($_SESSION['departamento']['result'] as $row) {
+				if ($row->ID_Pais == $id) {
+					$arrDepartamento[] = [
+						'ID_Departamento' => $row->ID_Departamento,
+						'No_Departamento' => $row->No_Departamento,
+					];
+				}
+			}
+
+            echo json_encode(array(
+                'status' => 'success',
+                'message' => 'Si hay registros',
+                'result' => $arrDepartamento
+            ));
+		} else {
+            echo json_encode(array(
+                'status' => 'warning',
+                'message' => 'No hay registros'
+            ));
+		}
 	}
 
 	function searchForIdProvincia() {
@@ -130,12 +161,47 @@ class Curso extends CI_Controller {
 	}
 	
 	public function crearUsuario(){
+		//array_debug($this->input->post('email'));
+
+		$email_cliente = $this->input->post('email');
+		if (!filter_var($email_cliente, FILTER_VALIDATE_EMAIL)) {
+			$response_izipay = array(
+				'status' => 'warning',
+				'message' => 'Correo inválido',
+			);
+			echo json_encode($response_izipay);
+			exit();
+		}
+
+		if (!is_valid_email($email_cliente)) {
+			$response_izipay = array(
+				'status' => 'warning',
+				'message' => 'Correo inválido',
+			);
+			echo json_encode($response_izipay);
+			exit();
+		}
+
+		if (!is_valid_email_expresion_regular($email_cliente)) {
+			$response_izipay = array(
+				'status' => 'warning',
+				'message' => 'Correo inválido',
+			);
+			echo json_encode($response_izipay);
+			exit();
+		}
+
+		echo json_encode($this->CursoModel->crearUsuario($this->input->post()));
+		exit();
+
+		/*
 		$response_izipay = array(
 			'status' => 'success',
 			'message' => 'Usuario creado',
 		);
 		echo json_encode($response_izipay);
 		exit();
+		*/
 	}
 	
 	public function respuestaIzipay(){
@@ -144,7 +210,6 @@ class Curso extends CI_Controller {
 		$client = new Lyra\Client();
 
 		if (!$client->checkHash()) {
-			//something wrong, probably a fraud ....
 			$response_izipay = array(
 				'status' => 'error',
 				'message' => 'invalid signature'
@@ -177,136 +242,4 @@ class Curso extends CI_Controller {
 			)
 		);
 	}
-
-	/*
-	public function respuestaIzipay(){
-		//(En el Back Office) Clave HMAC-SHA-256 de test
-		Lyra\Client::setDefaultSHA256Key("G6pEoysq3vLZBpOYSfY7ZInsXS2o6OHodOd40Q8BjhnDU");
-		
-		$client = new Lyra\Client();
-
-		//$_POST['kr-hash']= 'Yga5AOlU5qomnyEj3EQvwMvpotybpd7q4Yk0z9ZZtUaJQ';
-		if (!$client->checkHash()) {
-			//something wrong, probably a fraud ....
-			$response_izipay = array(
-				'status' => 'error',
-				'message' => 'invalid signature'
-			);
-			$this->load->view('Curso/GraciasIzipay',
-				array(
-					'response_izipay' => $response_izipay
-				)
-			);
-			//echo json_encode($response_izipay);
-			//exit();
-		}
-		
-		$rawAnswer = $client->getParsedFormAnswer();
-		$formAnswer = $rawAnswer['kr-answer'];
-		
-		$transaction = $formAnswer['transactions'][0];
-		
-		$result['orderStatus'] = $formAnswer['orderStatus'];
-		$result['orderId'] = $formAnswer['orderDetails']['orderId'];
-		$result['transactionUuid'] = $transaction['uuid'];
-
-		$response_izipay = array(
-			'status' => 'success',
-			'message' => 'Orden generada',
-			'result' => $result
-		);
-
-		$this->load->view('Curso/GraciasIzipay',
-			array(
-				'response_izipay' => $response_izipay
-			)
-		);
-		//echo json_encode($formAnswer);
-		//exit();
-	}
-	
-	/*
-	public function generarPedidoCurso(){
-		
-		//(En el Back Office) Copiar Usuario
-		Lyra\Client::setDefaultUsername("78655451");
-		//(En el Back Office) Copiar Contraseña de test
-		Lyra\Client::setDefaultPassword("testpassword_cC71d22bmbbkpXlhKVzxy3BVG1FZm7Z4ILlTKL3lZDB4o");
-		//(En el Back Office) Copiar Contraseña de Nombre del servidor API REST
-		Lyra\Client::setDefaultEndpoint("https://api.micuentaweb.pe");
-
-		//(En el Back Office) Copiar Clave pública de test
-		Lyra\Client::setDefaultPublicKey("78655451:testpublickey_07vuSHY0ErsDxStV4VSfZfiPrIKXMg4ZAM7WWzYSqYUoL");
-
-		//(En el Back Office) Clave HMAC-SHA-256 de test
-		Lyra\Client::setDefaultSHA256Key("G6pEoysq3vLZBpOYSfY7ZInsXS2o6OHodOd40Q8BjhnDU");
-
-		$client = new Lyra\Client();
-
-		$store = array(
-			"amount" => 149 * 100,
-			"currency" => "PEN",
-			"orderId" => uniqid("MyOrderId"),
-		);
-		$response = $client->post("V4/Charge/CreatePayment", $store);
-
-		if ($response['status'] != 'SUCCESS') {
-			//display_error($response);
-			$error = $response['answer'];
-			//throw new Exception("error " . $error['errorCode'] . ": " . $error['errorMessage'] );
-			$response_izipay = array(
-				'status' => 'error',
-				'message' => $error['errorMessage'],
-				'code_error' => $error['errorCode'],
-			);
-			echo json_encode($response_izipay);
-			exit();
-		}
-
-		$formToken = $response["answer"]["formToken"];
-
-		$this->load->view('Curso/Pago',
-			array(
-				'client' => $client,
-				'formToken' => $formToken
-			)
-		);
-	}
-	
-	public function respuestaIzipay(){
-		//(En el Back Office) Clave HMAC-SHA-256 de test
-		Lyra\Client::setDefaultSHA256Key("G6pEoysq3vLZBpOYSfY7ZInsXS2o6OHodOd40Q8BjhnDU");
-
-		$client = new Lyra\Client();
-
-		//$_POST['kr-hash']= 'Yga5AOlU5qomnyEj3EQvwMvpotybpd7q4Yk0z9ZZtUaJQ';
-				
-		if (!$client->checkHash()) {
-			//something wrong, probably a fraud ....
-			$response_izipay = array(
-				'status' => 'error',
-				'message' => 'invalid signature'
-			);
-			echo json_encode($response_izipay);
-			exit();
-		}
-		
-		$rawAnswer = $client->getParsedFormAnswer();
-		$formAnswer = $rawAnswer['kr-answer'];
-		
-		$transaction = $formAnswer['transactions'][0];
-		
-		$result['orderStatus'] = $formAnswer['orderStatus'];
-		$result['orderId'] = $formAnswer['orderDetails']['orderId'];
-		$result['transactionUuid'] = $transaction['uuid'];
-
-		$response_izipay = array(
-			'status' => 'success',
-			'message' => 'Orden generada',
-			'result' => $result
-		);
-		echo json_encode($formAnswer);
-		exit();
-	}
-	*/
 }

@@ -20,6 +20,9 @@
 		<!-- Google Font: Source Sans Pro -->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
+		<!--select2-->
+		<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
 		<link rel="stylesheet" href="<?php echo base_url("assets/css/style_curso_registro.css?ver=6.0.0"); ?>">
@@ -96,43 +99,59 @@
 
 							<div class="row">
 								<div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
-									<label for="floatName" class="fw-bold mb-2" for="floatEmail">Celular</label>
-									<input type="text" inputmode="tel" class="form-control w-100" id="txt-celular" placeholder="">
+                  					<input type="hidden" value="51" id="codigo_pais" name="codigo_pais" class="form-control">
+									<label for="celular" class="fw-bold mb-2">Celular</label>
+									<input type="text" inputmode="tel" class="form-control input-number w-100" id="celular" name="celular" placeholder="">
 								</div>
 
 								<div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
-									<label for="floatName" class="fw-bold mb-2" for="floatEmail">DNI / RUC / OTROS</label>
-									<input type="text" class="form-control" id="floatName" placeholder="">
+									<label for="dni" class="fw-bold mb-2">DNI / RUC / OTROS</label>
+									<input type="text" class="form-control input-number_letter" id="dni" name="dni" placeholder="">
 								</div>
 							</div>
 
 							<div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
-								<label for="floatName" class="fw-bold mb-2" for="floatEmail">Nombres y Apellidos</label>
-								<input type="text" class="form-control" id="floatName" placeholder="">
+								<label for="name" class="fw-bold mb-2">Nombres y Apellidos</label>
+								<input type="text" class="form-control" id="name" name="name" placeholder="">
 							</div>
 
 							<div class="row">
 								<div class="col-12 col-sm-4 col-md-4 col-lg-4 mb-3">
-									<label for="floatName" class="fw-bold mb-2" for="floatEmail">Edad</label>
-									<input type="text" inputmode="numeric" class="form-control" id="floatName" placeholder="">
+									<label for="edad" class="fw-bold mb-2">Edad</label>
+									<input type="text" inputmode="numeric" class="form-control input-number" id="edad" name="edad" placeholder="">
 								</div>
 							
 								<div class="col-12 col-sm-8 col-md-8 col-lg-8 mb-3">
-									<label for="" class="fw-bold mb-2" for="floatEmail">Sexo</label>
+									<label for="radioSexo" class="fw-bold mb-2">Sexo</label>
 									<div class="form-group">
 										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-											<label class="form-check-label" for="inlineRadio1">Hombre</label>
+											<input style="cursor: pointer" class="form-check-input" type="radio" name="radioSexo" id="radioSexoH" value="1">
+											<label style="cursor: pointer" class="form-check-label" for="radioSexoH">Hombre</label>
 										</div>
 										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-											<label class="form-check-label" for="inlineRadio2">Mujer</label>
+											<input style="cursor: pointer" class="form-check-input" type="radio" name="radioSexo" id="radioSexoM" value="2">
+											<label style="cursor: pointer" class="form-check-label" for="radioSexoM">Mujer</label>
 										</div>
 										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-											<label class="form-check-label" for="inlineRadio3">Otros</label>
+											<input style="cursor: pointer" class="form-check-input" type="radio" name="radioSexo" id="radioSexoO" value="3">
+											<label style="cursor: pointer" class="form-check-label" for="radioSexoO">Otros</label>
 										</div>
 									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-4">
+									<label class="fw-bold mb-2">Pais <span class="label-advertencia text-danger"> *</span></label>
+									<div class="form-group">
+										<select name="cbo-pais" id="cbo-pais" class="form-select">
+											<option value="0" selected="selected">- Seleccionar -</option>
+											<?php foreach ($arrPais['result'] as $row) { ?>
+												<option value="<?php echo $row->ID_Pais; ?>"><?php echo $row->No_Pais; ?></option>
+											<?php } ?>
+										</select>
+									</div>
+									<span class="help-block text-danger" id="error"></span>
 								</div>
 							</div>
 
@@ -142,9 +161,6 @@
 									<div class="form-group">
 										<select name="cbo-departamento" id="cbo-departamento" class="form-select">
 											<option value="0" selected="selected">- Seleccionar -</option>
-											<?php foreach ($arrDepartamento['result'] as $row) { ?>
-												<option value="<?php echo $row->ID_Departamento; ?>"><?php echo $row->No_Departamento; ?></option>
-											<?php } ?>
 										</select>
 									</div>
 									<span class="help-block text-danger" id="error"></span>
@@ -234,6 +250,21 @@
 				</div>
 			</footer>
 		</div>
+
+		<div class="modal" id="modal-message" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title fw-bold" id="modal-title"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success w-100" data-bs-dismiss="modal">Aceptar</button>
+				</div>
+				</div>
+			</div>
+		</div>
+
 	</body>
 
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
@@ -247,6 +278,8 @@
 	
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput-jquery.min.js"></script>
 
-    <script src="<?php echo base_url("assets/js/inicio_curso_registro.js?ver=78.0.0"); ?>"></script>
+	  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script src="<?php echo base_url("assets/js/inicio_curso_registro.js?ver=79.0.3"); ?>"></script>
   </body>
 </html>
