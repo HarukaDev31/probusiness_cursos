@@ -11,8 +11,22 @@
                 font-family: 'Roboto', sans-serif;
             }
 
+            a.btn-recuperar:link, a.btn-recuperar:visited {
+                background-color: #FF500B;
+                color: white;
+                padding: 14px 25px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                border-radius: 8px;
+            }
+            
+            a.btn-recuperar:hover, a.btn-recuperar:active {
+                background-color: #FF500B;
+            }
+
             #btn-ver_documento, #btn-ver_documento:link, #btn-ver_documento:visited {
-                background-color: #00b8d4;
+                background-color: #FF500B;
                 color: white;
                 padding: 14px 25px;
                 text-align: center;
@@ -22,7 +36,7 @@
             }
             
             #btn-ver_documento:hover, #btn-ver_documento:active {
-                background-color: #08c7e5;
+                background-color: #FF500B;
             }
             
             .list-unstyled {
@@ -108,7 +122,7 @@
                                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                     <tr height="10">
                                         <td width="32px">
-                                            <b>Hola,</b>
+                                            <b>Hola <?php echo $name; ?>,</b>
                                         </td>
                                     </tr>
                                     <tr height="10">
@@ -118,7 +132,7 @@
                                     </tr>
                                     <tr height="10">
                                         <td width="32px">
-                                            Listo 🙌🏻 <b><?php echo $name; ?></b> para poder acceder a nuestra Aula Virtual 👨🏼‍🏫 le comparto su Usuario y Contraseña para que pueda ingresar: 👇🏼📚 <br><br>
+                                            Listo 🙌🏻 para poder acceder a nuestra Aula Virtual 👨🏼‍🏫 le comparto su Usuario y Contraseña para que pueda ingresar: 👇🏼📚 <br><br>
                                             ✅Usuario: <?php echo $email; ?> <br>
                                             ✅Contraseña: <?php echo $password; ?>
                                             <br><br>💻Link de Nuestra plataforma: https://aulavirtualprobusiness.com/login
@@ -175,7 +189,7 @@
                             </td>
                         </tr>
                         <tr height="10">
-                            <td style="font-weight: bold; color: #fff; padding: 8px 0 4px 0; border-radius: 8px;" align="center" bgcolor="#FF500B">
+                            <td style="font-weight: bold; color: #fff; padding: 8px 0 4px 0;" align="center" bgcolor="#FF500B">
                                 <h4>visítanos también en nuestra página web <a href="https://www.probusiness.pe" alt="ProBusiness" title="ProBusiness" target="_blank" style="color: #FFF; text-decoration: none;"> www.probusiness.pe</a></h4>
                             </td>
                         </tr>
