@@ -201,7 +201,7 @@ class Curso extends CI_Controller {
 	}
 	
 	public function respuestaIzipay(){
-		Lyra\Client::setDefaultSHA256Key("G6pEoysq3vLZBpOYSfY7ZInsXS2o6OHodOd40Q8BjhnDU");
+		Lyra\Client::setDefaultSHA256Key("KhHFiouLSgCFB9gsRzafqcwpppQlY6YzzxXwTTLU4mG5S");
 		
 		$client = new Lyra\Client();
 
