@@ -11,20 +11,6 @@
                 font-family: 'Roboto', sans-serif;
             }
 
-            a.btn-recuperar:link, a.btn-recuperar:visited {
-                background-color: #FF500B;
-                color: white;
-                padding: 14px 25px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                border-radius: 8px;
-            }
-            
-            a.btn-recuperar:hover, a.btn-recuperar:active {
-                background-color: #FF500B;
-            }
-
             #btn-ver_documento, #btn-ver_documento:link, #btn-ver_documento:visited {
                 background-color: #FF500B;
                 color: white;
@@ -145,7 +131,7 @@
                                     </tr>
                                     <tr height="10">
                                         <td width="32px" align="center">
-                                            <a href="https://aulavirtualprobusiness.com/login" class="btn-recuperar" target="_blank">Acceder</a>
+                                            <a href="https://aulavirtualprobusiness.com/login" id="btn-ver_documento" class="btn-recuperar" target="_blank">Acceder</a>
                                         </td>
                                     </tr>
                                     <tr height="10">
