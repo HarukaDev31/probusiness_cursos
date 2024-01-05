@@ -221,6 +221,7 @@ class Curso extends CI_Controller {
 					'response_izipay' => $response_izipay
 				)
 			);
+			exit();
 		}
 
 		$rawAnswer = $client->getParsedFormAnswer();
@@ -277,6 +278,7 @@ class Curso extends CI_Controller {
 								'response_izipay' => $response_izipay
 							)
 					  );
+					  exit();
 					}
 				} else {
 					$where = array('ID_Pedido_Curso' => $id_pedido_curso);
@@ -291,6 +293,7 @@ class Curso extends CI_Controller {
 							'response_izipay' => $response_izipay
 						)
 					);
+					exit();
 				}
 			} else {
 				$where = array('ID_Pedido_Curso' => $id_pedido_curso);
@@ -306,6 +309,7 @@ class Curso extends CI_Controller {
 						'response_izipay' => $response_izipay
 					)
 			  	);
+				exit();
 			}
 
 			// marcar usuario moodle generado
@@ -339,6 +343,7 @@ class Curso extends CI_Controller {
 						'response_izipay' => $response_izipay
 					)
 			  	);
+				exit();
 			}
 
 			$response_izipay = array(
