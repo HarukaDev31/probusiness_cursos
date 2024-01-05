@@ -6,12 +6,16 @@ class Curso extends CI_Controller {
 		parent::__construct();
 		$this->load->database('default');
 		$this->load->library('session');
-		//$this->load->library('encryption');
+		$this->load->library('encryption');
 		$this->load->model('CursoModel');
 	}
 
 	public function index(){
 		$arrPais = $this->CursoModel->getPais();
+
+		//unset($_SESSION['departamento']);
+		//unset($_SESSION['provincia']);
+		//unset($_SESSION['distrito']);
 
 		//get Departamento
 		if(!isset($_SESSION['departamento'])) {
@@ -193,15 +197,6 @@ class Curso extends CI_Controller {
 
 		echo json_encode($this->CursoModel->crearUsuario($this->input->post()));
 		exit();
-
-		/*
-		$response_izipay = array(
-			'status' => 'success',
-			'message' => 'Usuario creado',
-		);
-		echo json_encode($response_izipay);
-		exit();
-		*/
 	}
 	
 	public function respuestaIzipay(){
@@ -210,6 +205,12 @@ class Curso extends CI_Controller {
 		$client = new Lyra\Client();
 
 		if (!$client->checkHash()) {
+			//actualizar pedido
+			$id_pedido_curso = $this->input->post('acme-hidden');
+			$where = array('ID_Pedido_Curso' => $id_pedido_curso);
+			$data_upd = array('Nu_Estado' => '4');//4=rechazado
+			$this->CursoModel->actualizarPedido($where, $data_upd);
+
 			$response_izipay = array(
 				'status' => 'error',
 				'message' => 'invalid signature'
@@ -220,21 +221,37 @@ class Curso extends CI_Controller {
 				)
 			);
 		}
-		
+
 		$rawAnswer = $client->getParsedFormAnswer();
+
 		$formAnswer = $rawAnswer['kr-answer'];
-		
+
 		$transaction = $formAnswer['transactions'][0];
 		
 		$result['orderStatus'] = $formAnswer['orderStatus'];
 		$result['orderId'] = $formAnswer['orderDetails']['orderId'];
 		$result['transactionUuid'] = $transaction['uuid'];
 
-		$response_izipay = array(
-			'status' => 'success',
-			'message' => 'Orden generada',
-			'result' => $result
-		);
+		if( $result['orderStatus']=='PAID' ){
+			//actualizar pedido
+			$id_pedido_curso = $this->input->post('acme-hidden');
+			$where = array('ID_Pedido_Curso' => $id_pedido_curso);
+			$data_upd = array('Nu_Estado' => '2');
+			$this->CursoModel->actualizarPedido($where, $data_upd);
+
+			//crear usuario para moodle
+
+
+			$response_izipay = array(
+				'status' => 'success',
+				'message' => 'Orden generada Nro. ' . $id_pedido_curso
+			);
+		} else {
+			$response_izipay = array(
+				'status' => 'error',
+				'message' => 'code: ' . $transaction['errorCode'] . 'message: ' . $transaction['errorMessage']
+			);
+		}
 
 		$this->load->view('Curso/GraciasIzipay',
 			array(

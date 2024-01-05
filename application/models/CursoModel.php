@@ -113,6 +113,21 @@ class CursoModel extends CI_Model{
             $this->db->insert('grupo_usuario', $grupo_usuario);
         }
 
+        //insert venta
+        $pedido_curso = array(
+            'ID_Empresa'                => 1,
+            'ID_Organizacion'           => 1,
+            'Nu_Estado'                 => 1,
+            'Nu_Estado_Usuario_Externo' => 1,
+            'Ss_Total' => 149,
+            'ID_Pais' => $arrPost['cbo-pais'],
+            'ID_Entidad' => $ID_Entidad,
+            'Fe_Emision' => dateNow('fecha')
+        );
+
+        $this->db->insert('pedido_curso', $pedido_curso);
+        $ID_Pedido_Curso = $this->db->insert_id();
+
 		if ($this->db->trans_status() === FALSE) {
 			$this->db->trans_rollback();
 			return array(
@@ -124,6 +139,9 @@ class CursoModel extends CI_Model{
 			return array(
 				'status' => 'success',
 				'message' => 'Usuario registrado, valida tu pago',
+                'result' => array(
+                    'id' => $ID_Pedido_Curso
+                )
 			);
 		}
     }
@@ -238,5 +256,11 @@ class CursoModel extends CI_Model{
             'status' => 'warning',
             'message' => 'No hay registros'
         );
+    }
+
+    public function actualizarPedido($where, $data){
+        if ( $this->db->update('pedido_curso', $data, $where) > 0 )
+            return array('status' => 'success', 'message' => 'Registro modificado');
+        return array('status' => 'error', 'message' => 'Error al modificar');
     }
 }

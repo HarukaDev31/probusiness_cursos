@@ -155,7 +155,7 @@
 								</div>
 							</div>
 
-							<div class="row">
+							<div class="row div-ubigeo_peru">
 								<div class="col-12 col-sm-4 col-md-6 col-lg-4 mb-4">
 									<label class="fw-bold mb-2">Departamento <span class="label-advertencia text-danger"> *</span></label>
 									<div class="form-group">
@@ -195,6 +195,8 @@
 								<div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-0" style="visibility: hidden;">
 									<!-- payment form -->
 									<div class="kr-embedded" kr-popin kr-form-token="<?php echo $formToken;?>">
+										<!-- custom hidden field -->
+										<input type="hidden" id="id_pedido_curso" name="acme-hidden" value="10"/>
 
 										<!-- payment form fields -->
 										<div class="kr-pan"></div>
@@ -280,6 +282,6 @@
 
 	  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <script src="<?php echo base_url("assets/js/inicio_curso_registro.js?ver=79.0.3"); ?>"></script>
+    <script src="<?php echo base_url("assets/js/inicio_curso_registro.js?ver=81.0.3"); ?>"></script>
   </body>
 </html>

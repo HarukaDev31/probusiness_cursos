@@ -6,6 +6,8 @@ $(document).ready(function () {
     //onlyCountries: ["pe", "mx", "ar", "ec", "ve", "cl", "br", "bo", "co", "py", "py", "uy", "pa", "sv", "hn", "ni", "cr", "cu", "pr", "gt"],
   });
 
+  $('.div-ubigeo_peru').hide();
+
   $('.input-number').on('input', function () {
     this.value = this.value.replace(/[^0-9]/g, '');
   });
@@ -87,6 +89,8 @@ $(document).ready(function () {
 
         if(response.status=='success') {
           $(".kr-popin-button").click();
+          
+          $('#id_pedido_curso').val(response.result.id);
 
           let config = {
             "merchant": {
@@ -105,6 +109,7 @@ $(document).ready(function () {
           $('#modal-message').modal('show');
           $('#modal-title').html(response.message);
         }
+
       });
     }
   });
@@ -112,7 +117,12 @@ $(document).ready(function () {
   $(document).on('change', '#cbo-pais', function () {
     var id = $(this).val(), sTextoPais = $("#cbo-pais option:selected").text(), response = '';
     $('#cbo-departamento').html('<option value="0" selected="selected">- Cargando -</option>');
+    $('.div-ubigeo_peru').hide();
     if (id > 0) {
+      if(id==1){//1=peru
+        $('.div-ubigeo_peru').show();
+      }
+
       $.post(base_url + 'Curso/searchForIdDepartamento', { ID_Pais : id }, function (response) {
         //console.log(response);
         if(response.status=='success'){

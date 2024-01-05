@@ -35,7 +35,17 @@
   	</head>
 	<body class="bg-light">
 		<main>
-			<?php array_debug($response_izipay); ?>
+			<?php //array_debug($response_izipay); ?>
+			<br><br>
+			<div class="container mt-5">
+				<?php if($response_izipay['status']=='success') { ?>
+					<h2 class="text-center mb-4 pt-3 text-success"><i class="fa-solid fa-circle-check fa-3x text-green"></i></h2>
+					<h2 class="text-center mb-4"><?php echo $response_izipay['message']; ?></h2>
+				<?php } else { ?>
+					<h2 class="text-center mb-4 pt-3 text-danger"><i class="fa-solid fa-circle-exclamation fa-3x text-danger"></i></i></h2>
+					<h2 class="text-center mb-4"><?php echo $response_izipay['message']; ?></h2>
+				<?php } ?>
+			</div>
 		</main>
 
 		<div class="container py-3 pb-3">
