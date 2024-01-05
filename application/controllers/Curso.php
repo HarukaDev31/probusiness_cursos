@@ -319,7 +319,7 @@ class Curso extends CI_Controller {
 			$data_email["email"] = $this->input->post('acme-email');
 			$data_email["password"] = $this->input->post('acme-password');
 			$data_email["name"] = $this->input->post('acme-name');
-			$message_email = $this->load->view('correos/cuenta_moodle', $data_email, true);
+			$message_email = $this->load->view('Correos/cuenta_moodle', $data_email, true);
 			
 			$this->email->from('noreply@lae.one', 'ProBusiness');//de
 			$this->email->to($this->input->post('acme-email'));//para
