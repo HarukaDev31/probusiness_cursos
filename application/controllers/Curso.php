@@ -14,9 +14,9 @@ class Curso extends CI_Controller {
 	public function index(){
 		$arrPais = $this->CursoModel->getPais();
 
-		//unset($_SESSION['departamento']);
-		//unset($_SESSION['provincia']);
-		//unset($_SESSION['distrito']);
+		unset($_SESSION['departamento']);
+		unset($_SESSION['provincia']);
+		unset($_SESSION['distrito']);
 
 		//get Departamento
 		if(!isset($_SESSION['departamento'])) {
