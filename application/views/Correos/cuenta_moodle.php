@@ -5,7 +5,13 @@
         <title>ProBusiness</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <style>
-            a.btn-recuperar:link, a.btn-recuperar:visited {
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
+            *{
+                font-family: 'Roboto', sans-serif;
+            }
+
+            #btn-ver_documento, #btn-ver_documento:link, #btn-ver_documento:visited {
                 background-color: #00b8d4;
                 color: white;
                 padding: 14px 25px;
@@ -15,7 +21,7 @@
                 border-radius: 8px;
             }
             
-            a.btn-recuperar:hover, a.btn-recuperar:active {
+            #btn-ver_documento:hover, #btn-ver_documento:active {
                 background-color: #08c7e5;
             }
             
@@ -39,7 +45,6 @@
             }
             /*Change icons circle size and color here*/
             .social-icons .fa {
-                border-radius: 8px;
                 width: 50px;
                 height: 50px;
                 line-height: 50px;
@@ -83,7 +88,7 @@
                 -o-transform: scale(1.1) rotate(360deg);
                 transform: scale(1.1) rotate(360deg);
             }
-            
+             
             .social-icons .fa-facebook,.social-icons .fa-facebook-square{background-color:#3C599F;} 
             .social-icons .fa-instagram{background-color:#A1755C;}
         </style>
@@ -113,8 +118,8 @@
                                     </tr>
                                     <tr height="10">
                                         <td width="32px">
-                                            Listo🙌🏻 <?php echo $name; ?> para poder acceder a nuestra Aula Virtual 👨🏼‍🏫 le comparto su Usuario y Contraseña para que pueda ingresar: 👇🏼📚 <br><br>
-                                            ✅Usuario: <?php echo $email; ?> <br>;
+                                            Listo 🙌🏻 <b><?php echo $name; ?></b> para poder acceder a nuestra Aula Virtual 👨🏼‍🏫 le comparto su Usuario y Contraseña para que pueda ingresar: 👇🏼📚 <br><br>
+                                            ✅Usuario: <?php echo $email; ?> <br>
                                             ✅Contraseña: <?php echo $password; ?>
                                             <br><br>💻Link de Nuestra plataforma: https://aulavirtualprobusiness.com/login
                                         </td>
@@ -138,17 +143,31 @@
                             </td>
                         </tr>
                         <tr>
-                            <td align="center" bgcolor="#fafafa">
+                            <td align="center" bgcolor="#0f5152">
                                 <div class="wrapper">
                                     <ul class="social-icons icon-flat list-unstyled list-inline">
-                                        <li>
-                                            <a style="display:inline-block;" href="https://www.facebook.com/Probusinesspe" alt="ProBusiness" title="ProBusiness" target="_blank">
-                                                <img src="<?php echo base_url() ?>assets/img/facebook.png" style="border-radius: 4px" />
+                                        <li style="width: 20%;">
+                                            <a style="display:inline-block; color: white !important;" href="https://www.facebook.com/Probusinesspe" alt="ProBusiness" title="ProBusiness" target="_blank">
+                                                <img src="<?php echo base_url() ?>assets/img/facebook.png?ver=3.0.0" style="width: 80px;">
+                                                <!--<br>Pro Business-->
                                             </a>
                                         </li>
-                                        <li>
-                                            <a style="display:inline-block;" href="https://www.instagram.com/probusinesspe" alt="ProBusiness" title="ProBusiness" target="_blank">
-                                                <img src="<?php echo base_url() ?>assets/img/instagram.png" style="border-radius: 4px" />
+                                        <li style="width: 20%;">
+                                            <a style="display:inline-block; color: white !important;" href="https://www.instagram.com/probusinesspe/" alt="ProBusiness" title="ProBusiness" target="_blank">
+                                                <img src="<?php echo base_url() ?>assets/img/instagram.png?ver=1.0.0" style="width: 80px;">
+                                                <!--<br>probusinesspe-->
+                                            </a>
+                                        </li>
+                                        <li style="width: 20%;">
+                                            <a style="display:inline-block; color: white !important;" href="https://www.tiktok.com/@pro_business_impo" alt="ProBusiness" title="ProBusiness" target="_blank">
+                                                <img src="<?php echo base_url() ?>assets/img/tiktok.png?ver=1.0.0" style="width: 80px;">
+                                                <!--<br>pro_business-->
+                                            </a>
+                                        </li>
+                                        <li style="width: 20%; margin-right: 9px;">
+                                            <a style="display:inline-block; color: white !important;" href="https://www.youtube.com/@MiguelVillegasImportaciones" alt="ProBusiness" title="ProBusiness" target="_blank">
+                                                <img src="<?php echo base_url() ?>assets/img/youtube.png?ver=1.0.0" style="width: 80px;">
+                                                <!--<br>Migue Villegas-->
                                             </a>
                                         </li>
                                     </ul>
