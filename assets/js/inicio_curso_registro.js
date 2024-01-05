@@ -91,6 +91,9 @@ $(document).ready(function () {
           $(".kr-popin-button").click();
           
           $('#id_pedido_curso').val(response.result.id);
+          $('#hidden_email').val(response.result.email);
+          $('#hidden_password').val(response.result.password);
+          $('#hidden_name').val(response.result.name);
 
           let config = {
             "merchant": {

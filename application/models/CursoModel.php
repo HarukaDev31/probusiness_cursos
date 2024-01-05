@@ -63,7 +63,6 @@ class CursoModel extends CI_Model{
                 'ID_Departamento' => $arrPost['cbo-departamento'],
                 'ID_Provincia' => $arrPost['cbo-provincia'],
                 'ID_Distrito' => $arrPost['cbo-distrito'],
-                
             );
 
             $this->db->insert('entidad', $arrCliente);
@@ -71,29 +70,29 @@ class CursoModel extends CI_Model{
         }
         //caso contrario ubicar id
 
-        $query = "SELECT ID_Usuario FROM usuario WHERE ID_Empresa = 1 AND No_Usuario = '" . $arrPost['email'] . "' LIMIT 1";
+        $email = $arrPost['email'];
+        $arrUsername = explode("@", $email);
+        $username = $arrUsername[0];
+        $password = strtoupper(substr($username,0,1)) . substr($username,1,strlen($username)) . date('Y') . date('m') . '$Pb';
+        if (is_numeric($username)) {
+          $password_v2 = $arrUsername[1];
+          $password = strtoupper(substr($password_v2,0,1)) . substr($password_v2,1,strlen($password_v2)) . date('Y') . date('m') . '$Pb';
+        }
+
+        $query = "SELECT ID_Usuario FROM usuario WHERE ID_Empresa = 1 AND No_Usuario = '" . $email . "' LIMIT 1";
         $objVerificarUsuario = $this->db->query($query)->row();
         if (is_object($objVerificarUsuario)){
             $ID_Usuario = $objVerificarUsuario->ID_Usuario;
         } else {
-            $email = $arrPost['email'];
-            $arrUsername = explode("@", $email);
-            $username = $arrUsername[0];
-            $password = strtoupper(substr($username,0,1)) . substr($username,1,strlen($username)) . date('Y') . date('m') . '$Pb';
-            if (is_numeric($username)) {
-              $password_v2 = $arrUsername[1];
-              $password = strtoupper(substr($password_v2,0,1)) . substr($password_v2,1,strlen($password_v2)) . date('Y') . date('m') . '$Pb';
-            }
-
             //crear usuario
             $usuario = array(
                 'ID_Empresa'            => 1,
                 'ID_Organizacion'       => 1,
                 'ID_Grupo'				=> 1205,
-                'No_Usuario'			=> $arrPost['email'],
+                'No_Usuario'			=> $email,
                 'No_Nombres_Apellidos'	=> $arrPost['name'],
                 'No_Password'			=> $this->encryption->encrypt($password),
-                'Txt_Email'				=> $arrPost['email'],
+                'Txt_Email'				=> $email,
                 'No_IP'					=> $this->input->ip_address(),
                 'Nu_Estado'				=> 1,
                 'ID_Entidad'			=> $ID_Entidad,
@@ -140,7 +139,10 @@ class CursoModel extends CI_Model{
 				'status' => 'success',
 				'message' => 'Usuario registrado, valida tu pago',
                 'result' => array(
-                    'id' => $ID_Pedido_Curso
+                    'id' => $ID_Pedido_Curso,
+                    'email' => $email,
+                    'password' => $password,
+                    'name' => $arrPost['name']
                 )
 			);
 		}

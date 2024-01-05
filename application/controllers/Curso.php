@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require(APPPATH.'/libraries/MoodleRestPro.php');
 
 class Curso extends CI_Controller {
 	function __construct(){
@@ -206,7 +207,7 @@ class Curso extends CI_Controller {
 
 		if (!$client->checkHash()) {
 			//actualizar pedido
-			$id_pedido_curso = $this->input->post('acme-hidden');
+			$id_pedido_curso = $this->input->post('acme-id');
 			$where = array('ID_Pedido_Curso' => $id_pedido_curso);
 			$data_upd = array('Nu_Estado' => '4');//4=rechazado
 			$this->CursoModel->actualizarPedido($where, $data_upd);
@@ -234,13 +235,83 @@ class Curso extends CI_Controller {
 
 		if( $result['orderStatus']=='PAID' ){
 			//actualizar pedido
-			$id_pedido_curso = $this->input->post('acme-hidden');
+			$id_pedido_curso = $this->input->post('acme-id');
 			$where = array('ID_Pedido_Curso' => $id_pedido_curso);
 			$data_upd = array('Nu_Estado' => '2');
 			$this->CursoModel->actualizarPedido($where, $data_upd);
 
-			//crear usuario para moodle
+			//crear usuario y cursos para moodle
+			$MoodleRestPro = new MoodleRestPro();
+			$arrPost = array(
+				'username' => $this->input->post('acme-email'),
+				'password' => $this->input->post('acme-password'),
+				'firstname' => $this->input->post('acme-name'),
+				'email' => $this->input->post('acme-email')
+			);
+			$response_usuario_moodle = $MoodleRestPro->createUser($arrPost);
 
+			if($response_usuario_moodle['status']=='success'){
+				// Property added to the object
+				$arrParams['criteria'][0]['key']='username';
+				$arrParams['criteria'][0]['value']=$this->input->post('acme-email');
+				$response_usuario = $MoodleRestPro->getUser($arrParams);
+			
+				if($response_usuario['status']=='success'){
+					$result_usuario = $response_usuario['response'];
+				
+					$id_usuario = $result_usuario->id;
+					$arrParamsCurso = array(
+						'id_usuario' => $id_usuario//id_usuario
+					);
+					$response_curso = $MoodleRestPro->crearCursoUsuario($arrParamsCurso);
+					if($response_curso['status']!='success'){
+						$where = array('ID_Pedido_Curso' => $id_pedido_curso);
+						$data_upd = array('Nu_Estado_Usuario_Externo' => '3');//usuario no creado en moodle
+						$this->CursoModel->actualizarPedido($where, $data_upd);
+						$response_izipay = array(
+							'status' => 'success',
+							'message' => 'Orden generada Nro. ' . $id_pedido_curso . ' pero se asigno curso'
+						);
+						$this->load->view('Curso/GraciasIzipay',
+							array(
+								'response_izipay' => $response_izipay
+							)
+					  );
+					}
+				} else {
+					$where = array('ID_Pedido_Curso' => $id_pedido_curso);
+					$data_upd = array('Nu_Estado_Usuario_Externo' => '3');//usuario no creado en moodle
+					$this->CursoModel->actualizarPedido($where, $data_upd);
+				  	$response_izipay = array(
+						'status' => 'success',
+						'message' => 'Orden generada Nro. ' . $id_pedido_curso . ' pero se encontro usuario para curso'
+				  	);
+				  	$this->load->view('Curso/GraciasIzipay',
+						array(
+							'response_izipay' => $response_izipay
+						)
+					);
+				}
+			} else {
+				$where = array('ID_Pedido_Curso' => $id_pedido_curso);
+				$data_upd = array('Nu_Estado_Usuario_Externo' => '3');//usuario no creado en moodle
+				$this->CursoModel->actualizarPedido($where, $data_upd);
+
+				$response_izipay = array(
+					'status' => 'success',
+					'message' => 'Orden generada Nro. ' . $id_pedido_curso . ' pero no se creo usuario moodle'
+				);
+				$this->load->view('Curso/GraciasIzipay',
+					array(
+						'response_izipay' => $response_izipay
+					)
+			  	);
+			}
+
+			// marcar usuario moodle generado
+			$where = array('ID_Pedido_Curso' => $id_pedido_curso);
+			$data_upd = array('Nu_Estado_Usuario_Externo' => '2');
+			$this->CursoModel->actualizarPedido($where, $data_upd);
 
 			$response_izipay = array(
 				'status' => 'success',

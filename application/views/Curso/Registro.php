@@ -196,7 +196,10 @@
 									<!-- payment form -->
 									<div class="kr-embedded" kr-popin kr-form-token="<?php echo $formToken;?>">
 										<!-- custom hidden field -->
-										<input type="hidden" id="id_pedido_curso" name="acme-hidden" value="10"/>
+										<input type="hidden" id="id_pedido_curso" name="acme-id" value=""/>
+										<input type="hidden" id="hidden_email" name="acme-email" value=""/>
+										<input type="hidden" id="hidden_password" name="acme-password" value=""/>
+										<input type="hidden" id="hidden_name" name="acme-name" value=""/>
 
 										<!-- payment form fields -->
 										<div class="kr-pan"></div>
@@ -282,6 +285,6 @@
 
 	  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <script src="<?php echo base_url("assets/js/inicio_curso_registro.js?ver=81.0.3"); ?>"></script>
+    <script src="<?php echo base_url("assets/js/inicio_curso_registro.js?ver=83.0.3"); ?>"></script>
   </body>
 </html>
