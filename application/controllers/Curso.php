@@ -313,6 +313,34 @@ class Curso extends CI_Controller {
 			$data_upd = array('Nu_Estado_Usuario_Externo' => '2');
 			$this->CursoModel->actualizarPedido($where, $data_upd);
 
+			// enviar correo con las credenciales
+			$this->load->library('email');
+
+			$data_email["email"] = $this->input->post('acme-email');
+			$data_email["password"] = $this->input->post('acme-password');
+			$data_email["name"] = $this->input->post('acme-name');
+			$message_email = $this->load->view('correos/cuenta_moodle', $data_email, true);
+			
+			$this->email->from('noreply@lae.one', 'ProBusiness');//de
+			$this->email->to($this->input->post('acme-email'));//para
+			$this->email->subject('Bienvenido al curso de ProBusiness');
+			$this->email->message($message_email);
+			$this->email->set_newline("\r\n");
+
+			$isSend = $this->email->send();
+			if($isSend) {
+			} else {
+				$response_izipay = array(
+					'status' => 'success',
+					'message' => 'Orden generada Nro. ' . $id_pedido_curso . ' pero no se envio email'
+				);
+				$this->load->view('Curso/GraciasIzipay',
+					array(
+						'response_izipay' => $response_izipay
+					)
+			  	);
+			}
+
 			$response_izipay = array(
 				'status' => 'success',
 				'message' => 'Orden generada Nro. ' . $id_pedido_curso
