@@ -53,7 +53,7 @@ class Curso extends CI_Controller {
 		$client = new Lyra\Client();
 
 		$store = array(
-			"amount" => 1 * 100,
+			"amount" => 159 * 100,
 			"currency" => "PEN",
 			"orderId" => uniqid("MyOrderId"),
 		);
