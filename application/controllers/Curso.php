@@ -323,7 +323,7 @@ class Curso extends CI_Controller {
 			
 			$this->email->from('noreply@lae.one', 'ProBusiness');//de
 			$this->email->to($this->input->post('acme-email'));//para
-			$this->email->subject('Bienvenido al curso de ProBusiness');
+			$this->email->subject('🎉 Bienvenido al curso');
 			$this->email->message($message_email);
 			$this->email->set_newline("\r\n");
 
