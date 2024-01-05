@@ -343,7 +343,7 @@ class Curso extends CI_Controller {
 
 			$response_izipay = array(
 				'status' => 'success',
-				'message' => 'Orden generada Nro. ' . $id_pedido_curso . ' y se envío credenciales de acceso por email'
+				'message' => 'Orden generada Nro. ' . $id_pedido_curso
 			);
 		} else {
 			$response_izipay = array(
