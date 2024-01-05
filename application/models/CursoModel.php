@@ -118,10 +118,12 @@ class CursoModel extends CI_Model{
             'ID_Organizacion'           => 1,
             'Nu_Estado'                 => 1,
             'Nu_Estado_Usuario_Externo' => 1,
-            'Ss_Total' => 149,
+            'Ss_Total' => 159,
             'ID_Pais' => $arrPost['cbo-pais'],
             'ID_Entidad' => $ID_Entidad,
-            'Fe_Emision' => dateNow('fecha')
+            'Fe_Emision' => dateNow('fecha'),
+            'ID_Moneda' => 1,
+            'ID_Medio_Pago' => 2,//tarjeta de crédito
         );
 
         $this->db->insert('pedido_curso', $pedido_curso);
