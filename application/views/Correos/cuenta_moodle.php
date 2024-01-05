@@ -119,8 +119,8 @@
                                     <tr height="10">
                                         <td width="32px">
                                             Listo 🙌🏻 para poder acceder a nuestra Aula Virtual 👨🏼‍🏫 le comparto su Usuario y Contraseña para que pueda ingresar: 👇🏼📚 <br><br>
-                                            ✅Usuario: <?php echo $email; ?> <br>
-                                            ✅Contraseña: <?php echo $password; ?>
+                                            ✅ Usuario: <?php echo $email; ?> <br>
+                                            ✅ Contraseña: <?php echo $password; ?>
                                             <br><br>💻Link de Nuestra plataforma: https://aulavirtualprobusiness.com/login
                                         </td>
                                     </tr>
