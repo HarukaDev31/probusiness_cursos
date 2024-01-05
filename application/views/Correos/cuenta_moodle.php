@@ -121,7 +121,8 @@
                                             🙌🏻 para poder acceder a nuestra Aula Virtual 👨🏼‍🏫 le comparto su Usuario y Contraseña para que pueda ingresar: 👇🏼📚 <br><br>
                                             ✅ Usuario: <?php echo $email; ?> <br>
                                             ✅ Contraseña: <?php echo $password; ?>
-                                            <br><br>💻Link de Nuestra plataforma: https://aulavirtualprobusiness.com/login
+                                            <br>💻 Link de Nuestra plataforma: https://aulavirtualprobusiness.com/login
+                                            <br><br>📁 Descarga el material del curso en el siguiente link: https://probusiness.pe/descargar_material_curso
                                         </td>
                                     </tr>
                                     <tr height="10">

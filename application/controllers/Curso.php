@@ -38,22 +38,22 @@ class Curso extends CI_Controller {
 		//(En el Back Office) Copiar Usuario
 		Lyra\Client::setDefaultUsername("78655451");
 		//(En el Back Office) Copiar Contraseña de test
-		Lyra\Client::setDefaultPassword("testpassword_cC71d22bmbbkpXlhKVzxy3BVG1FZm7Z4ILlTKL3lZDB4o");
+		Lyra\Client::setDefaultPassword("prodpassword_sYm6SzBGdM2XIgf3COOOclUcbOTcaYTt3iZlz1WcDdSD7");
 		//(En el Back Office) Copiar Contraseña de Nombre del servidor API REST
 		Lyra\Client::setDefaultEndpoint("https://api.micuentaweb.pe");
 
 		/* publicKey and used by the javascript client */
 		//(En el Back Office) Copiar Clave pública de test
-		Lyra\Client::setDefaultPublicKey("78655451:testpublickey_07vuSHY0ErsDxStV4VSfZfiPrIKXMg4ZAM7WWzYSqYUoL");
+		Lyra\Client::setDefaultPublicKey("78655451:publickey_U2z6srU6cQGJPbbJwm6ssrpyiWdE1ZAom4AYgjcXwkUlm");
 
 		/* SHA256 key */
 		//(En el Back Office) Clave HMAC-SHA-256 de test
-		Lyra\Client::setDefaultSHA256Key("G6pEoysq3vLZBpOYSfY7ZInsXS2o6OHodOd40Q8BjhnDU");
+		Lyra\Client::setDefaultSHA256Key("KhHFiouLSgCFB9gsRzafqcwpppQlY6YzzxXwTTLU4mG5S");
 
 		$client = new Lyra\Client();
 
 		$store = array(
-			"amount" => 149 * 100,
+			"amount" => 1 * 100,
 			"currency" => "PEN",
 			"orderId" => uniqid("MyOrderId"),
 		);
