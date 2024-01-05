@@ -43,7 +43,7 @@ $(document).ready(function () {
   $("#form-registro").on('submit',function(e){
     e.preventDefault();
     
-    var email = $('#email'), celular = $('#celular'), dni = $('#dni'), name = $('#name');
+    var email = $('#email'), celular = $('#celular'), dni = $('#dni'), name = $('#name'), edad = $('#edad');
 
     var instanceCodeCountry = $("[name=celular]");
     instanceCodeCountry.intlTelInput();
@@ -73,6 +73,30 @@ $(document).ready(function () {
       name.focus();
       name.closest('.form-group').find('.help-block').html('Ingresar nombres');
       name.closest('.form-group').removeClass('text-success').addClass('text-danger');
+    } else if (edad.val().length === 0) {
+      edad.focus();
+      edad.closest('.form-group').find('.help-block').html('Ingresar');
+      edad.closest('.form-group').removeClass('text-success').addClass('text-danger');
+    } else if ($('input[name="radioSexo"]:checked').val() === undefined ) {
+      $('input[name="radioSexo"]').focus();
+      $('input[name="radioSexo"]').closest('.form-group').find('.help-block').html('Elegir sexo');
+      $('input[name="radioSexo"]').closest('.form-group').removeClass('text-success').addClass('text-danger');
+    } else if ($('#cbo-pais').val() == 0) {
+      $('#cbo-pais').focus();
+      $('#cbo-pais').closest('.form-group').find('.help-block').html('Seleccionar');
+      $('#cbo-pais').closest('.form-group').removeClass('text-success').addClass('text-danger');
+    } else if ($('#cbo-pais').val() == 1 && $('#cbo-departamento').val()==0) {
+      $('#cbo-departamento').focus();
+      $('#cbo-departamento').closest('.form-group').find('.help-block').html('Seleccionar País');
+      $('#cbo-departamento').closest('.form-group').removeClass('text-success').addClass('text-danger');
+    } else if ($('#cbo-pais').val() == 1 && $('#cbo-provincia').val()==0) {
+      $('#cbo-provincia').focus();
+      $('#cbo-provincia').closest('.form-group').find('.help-block').html('Seleccionar');
+      $('#cbo-provincia').closest('.form-group').removeClass('text-success').addClass('text-danger');
+    } else if ($('#cbo-pais').val() == 1 && $('#cbo-distrito').val()==0) {
+      $('#cbo-distrito').focus();
+      $('#cbo-distrito').closest('.form-group').find('.help-block').html('Seleccionar');
+      $('#cbo-distrito').closest('.form-group').removeClass('text-success').addClass('text-danger');
     } else {
       $('#btn-crear_cuenta').prop('disabled', true);
       $('#btn-crear_cuenta').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Creando');

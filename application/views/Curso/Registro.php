@@ -91,7 +91,7 @@
 								<div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
 									<label class="fw-bold mb-2" for="floatEmail">Email</label>
 									<div class="form-group">
-										<input type="email" inputmode="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+										<input type="email" inputmode="email" class="form-control" id="email" name="email" placeholder="">
 										<span class="help-block text-danger" id="error"></span>
 									</div>
 								</div>
@@ -101,65 +101,90 @@
 								<div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                   					<input type="hidden" value="51" id="codigo_pais" name="codigo_pais" class="form-control">
 									<label for="celular" class="fw-bold mb-2">Celular</label>
-									<input type="text" inputmode="tel" class="form-control input-number w-100" id="celular" name="celular" placeholder="">
+									<div class="form-group">
+										<input type="text" inputmode="tel" class="form-control input-number w-100" id="celular" name="celular" placeholder="" style="width: 100%;">
+										<span class="help-block text-danger" id="error"></span>
+									</div>
 								</div>
 
 								<div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
 									<label for="dni" class="fw-bold mb-2">DNI / RUC / OTROS</label>
-									<input type="text" class="form-control input-number_letter" id="dni" name="dni" placeholder="">
+									<div class="form-group">
+										<input type="text" class="form-control input-number_letter" id="dni" name="dni" placeholder="">
+										<span class="help-block text-danger" id="error"></span>
+									</div>
 								</div>
 							</div>
 
 							<div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
 								<label for="name" class="fw-bold mb-2">Nombres y Apellidos</label>
-								<input type="text" class="form-control" id="name" name="name" placeholder="">
+								<div class="form-group">
+									<input type="text" class="form-control" id="name" name="name" placeholder="">
+									<span class="help-block text-danger" id="error"></span>
+								</div>
 							</div>
 
 							<div class="row">
-								<div class="col-12 col-sm-4 col-md-4 col-lg-4 mb-3">
+								<div class="col-3 col-sm-4 col-md-4 col-lg-4 mb-3">
 									<label for="edad" class="fw-bold mb-2">Edad</label>
-									<input type="text" inputmode="numeric" class="form-control input-number" id="edad" name="edad" placeholder="">
+									<div class="form-group">
+										<input type="text" inputmode="numeric" class="form-control input-number" id="edad" name="edad" placeholder="">
+										<span class="help-block text-danger" id="error"></span>
+									</div>
 								</div>
 							
-								<div class="col-12 col-sm-8 col-md-8 col-lg-8 mb-3">
+								<div class="col-9 col-sm-8 col-md-8 col-lg-8 mb-3">
 									<label for="radioSexo" class="fw-bold mb-2">Sexo</label>
 									<div class="form-group">
-										<div class="form-check form-check-inline">
-											<input style="cursor: pointer" class="form-check-input" type="radio" name="radioSexo" id="radioSexoH" value="1">
-											<label style="cursor: pointer" class="form-check-label" for="radioSexoH">Hombre</label>
+										<div>
+											<div class="form-check form-check-inline me-1 me-sm-3">
+												<input style="cursor: pointer" class="form-check-input" type="radio" name="radioSexo" id="radioSexoH" value="1">
+												<label style="cursor: pointer" class="form-check-label" for="radioSexoH">Hombre</label>
+											</div>
+											<div class="form-check form-check-inline me-1 me-sm-3">
+												<input style="cursor: pointer" class="form-check-input" type="radio" name="radioSexo" id="radioSexoM" value="2">
+												<label style="cursor: pointer" class="form-check-label" for="radioSexoM">Mujer</label>
+											</div>
+											<div class="form-check form-check-inline me-1 me-sm-3">
+												<input style="cursor: pointer" class="form-check-input" type="radio" name="radioSexo" id="radioSexoO" value="3">
+												<label style="cursor: pointer" class="form-check-label" for="radioSexoO">Otros</label>
+											</div>
 										</div>
-										<div class="form-check form-check-inline">
-											<input style="cursor: pointer" class="form-check-input" type="radio" name="radioSexo" id="radioSexoM" value="2">
-											<label style="cursor: pointer" class="form-check-label" for="radioSexoM">Mujer</label>
-										</div>
-										<div class="form-check form-check-inline">
-											<input style="cursor: pointer" class="form-check-input" type="radio" name="radioSexo" id="radioSexoO" value="3">
-											<label style="cursor: pointer" class="form-check-label" for="radioSexoO">Otros</label>
-										</div>
+										<span class="help-block text-danger" id="error"></span>
 									</div>
 								</div>
 							</div>
 
 							<div class="row">
 								<div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-4">
-									<label class="fw-bold mb-2">Pais <span class="label-advertencia text-danger"> *</span></label>
+									<label class="fw-bold mb-2">Pais</label>
 									<div class="form-group">
-										<select name="cbo-pais" id="cbo-pais" class="form-select">
+										<select name="cbo-pais" id="cbo-pais" class="form-select" style="width: 100%;">
 											<option value="0" selected="selected">- Seleccionar -</option>
 											<?php foreach ($arrPais['result'] as $row) { ?>
 												<option value="<?php echo $row->ID_Pais; ?>"><?php echo $row->No_Pais; ?></option>
 											<?php } ?>
 										</select>
+										<span class="help-block text-danger" id="error"></span>
 									</div>
-									<span class="help-block text-danger" id="error"></span>
 								</div>
 							</div>
 
 							<div class="row div-ubigeo_peru">
 								<div class="col-12 col-sm-4 col-md-6 col-lg-4 mb-4">
-									<label class="fw-bold mb-2">Departamento <span class="label-advertencia text-danger"> *</span></label>
+									<label class="fw-bold mb-2">Departamento</label>
 									<div class="form-group">
-										<select name="cbo-departamento" id="cbo-departamento" class="form-select">
+										<select name="cbo-departamento" id="cbo-departamento" class="form-select" style="width: 100%;">
+											<option value="0" selected="selected">- Seleccionar -</option>
+										</select>
+										<span class="help-block text-danger" id="error"></span>
+									</div>
+								</div>
+
+								<div class="col-12 col-sm-4 col-md-6 col-lg-4 mb-4">
+									<label class="fw-bold mb-2">Provincia</label>
+									<div class="form-group">
+										<select name="cbo-provincia" id="cbo-provincia" class="form-select"  style="width: 100%;">
 											<option value="0" selected="selected">- Seleccionar -</option>
 										</select>
 									</div>
@@ -167,23 +192,13 @@
 								</div>
 
 								<div class="col-12 col-sm-4 col-md-6 col-lg-4 mb-4">
-									<label class="fw-bold mb-2">Provincia <span class="label-advertencia text-danger"> *</span></label>
+									<label class="fw-bold mb-2">Distrito</label>
 									<div class="form-group">
-										<select name="cbo-provincia" id="cbo-provincia" class="form-select">
-										<option value="0" selected="selected">- Seleccionar -</option>
-										</select>
-									</div>
-									<span class="help-block text-danger" id="error"></span>
-								</div>
-
-								<div class="col-12 col-sm-4 col-md-6 col-lg-4 mb-4">
-									<label class="fw-bold mb-2">Distrito <span class="label-advertencia text-danger"> *</span></label>
-									<div class="form-group">
-										<select name="cbo-distrito" id="cbo-distrito" class="form-select">
+										<select name="cbo-distrito" id="cbo-distrito" class="form-select"  style="width: 100%;">
 											<option value="0" selected="selected">- Seleccionar -</option>
 										</select>
+										<span class="help-block text-danger" id="error"></span>
 									</div>
-									<span class="help-block text-danger" id="error"></span>
 								</div>
 							</div>
 
@@ -285,6 +300,6 @@
 
 	  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <script src="<?php echo base_url("assets/js/inicio_curso_registro.js?ver=83.0.3"); ?>"></script>
+    <script src="<?php echo base_url("assets/js/inicio_curso_registro.js?ver=84.0.3"); ?>"></script>
   </body>
 </html>
