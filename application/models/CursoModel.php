@@ -63,6 +63,7 @@ class CursoModel extends CI_Model{
                 'ID_Departamento' => $arrPost['cbo-departamento'],
                 'ID_Provincia' => $arrPost['cbo-provincia'],
                 'ID_Distrito' => $arrPost['cbo-distrito'],
+                'Nu_Curso' => 1
             );
 
             $this->db->insert('entidad', $arrCliente);
