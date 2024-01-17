@@ -370,6 +370,12 @@ class Curso extends CI_Controller {
 				'status' => 'error',
 				'message' => 'code: ' . $transaction['errorCode'] . 'message: ' . $transaction['errorMessage']
 			);
+
+			//actualizar pedido
+			$id_pedido_curso = $this->input->post('acme-id');
+			$where = array('ID_Pedido_Curso' => $id_pedido_curso);
+			$data_upd = array('Nu_Estado' => '4');
+			$this->CursoModel->actualizarPedido($where, $data_upd);
 		}
 
 		$this->load->view('Curso/GraciasIzipay',
