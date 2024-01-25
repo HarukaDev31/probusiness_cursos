@@ -253,10 +253,7 @@ class Curso extends CI_Controller {
 			//actualizar pedido
 			$id_pedido_curso = $this->input->post('acme-id');
 			$where = array('ID_Pedido_Curso' => $id_pedido_curso);
-			$data_upd = array(
-				'Nu_Estado' => '2',
-				'ID_Referencia_Pago_Online' => $result['orderId']
-			);
+			$data_upd = array('Nu_Estado' => '2');
 			$this->CursoModel->actualizarPedido($where, $data_upd);
 
 			//crear usuario y cursos para moodle
@@ -377,10 +374,7 @@ class Curso extends CI_Controller {
 			//actualizar pedido
 			$id_pedido_curso = $this->input->post('acme-id');
 			$where = array('ID_Pedido_Curso' => $id_pedido_curso);
-			$data_upd = array(
-				'Nu_Estado' => '4',
-				'ID_Referencia_Pago_Online' => $result['orderId']
-			);
+			$data_upd = array('Nu_Estado' => '4');
 			$this->CursoModel->actualizarPedido($where, $data_upd);
 		}
 
