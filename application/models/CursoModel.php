@@ -119,7 +119,7 @@ class CursoModel extends CI_Model{
             'ID_Organizacion'           => 1,
             'Nu_Estado'                 => 1,
             'Nu_Estado_Usuario_Externo' => 1,
-            'Ss_Total' => 159,
+            'Ss_Total' => 109,
             'ID_Pais' => $arrPost['cbo-pais'],
             'ID_Entidad' => $ID_Entidad,
             'Fe_Emision' => dateNow('fecha'),
