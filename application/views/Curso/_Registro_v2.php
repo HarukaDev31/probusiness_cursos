@@ -36,6 +36,43 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 		
+		<style>
+			.kr-embedded .kr-payment-button {
+				color: #ffffff !important;
+				background-color: #00A09D !important;
+			}
+
+			.kr-embedded .kr-payment-button:hover {
+				color: #ffffff !important;
+				background-color: #3DD2CE !important;
+			}
+
+			.kr-popin-modal-header-background-image{
+				background-color: white !important;
+			}
+
+			.kr-popin-modal-header {
+				border: 0 !important;
+			}
+			
+			.kr-popin-open {
+				background-color: white !important;
+  				visibility: visible;
+			}
+		</style>
+
+		<!-- Javascript library. Should be loaded in head section -->
+		<!--En la etiqueta kr-post-url-success Colocar el archivo de redireccion o URL (RECORDAR)-->
+		<script 
+		src="<?php echo $client->getClientEndpoint();?>/static/js/krypton-client/V4.0/stable/kr-payment-form.min.js"
+		kr-public-key="<?php echo $client->getPublicKey();?>"
+		kr-post-url-success="<?php echo base_url() . 'Curso/respuestaIzipay'; ?>">
+		</script>
+
+		<!-- theme and plugins. should be loaded after the javascript library -->
+		<!-- not mandatory but helps to have a nice payment form out of the box -->
+		<link rel="stylesheet" href="<?php echo $client->getClientEndpoint();?>/static/js/krypton-client/V4.0/ext/classic-reset.css">
+		<script src="<?php echo $client->getClientEndpoint();?>/static/js/krypton-client/V4.0/ext/classic.js"></script>
   	</head>
 	<body class="bg-light">
 		<main>
@@ -168,14 +205,38 @@
 							<div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
                         		<button type="submit" id="btn-crear_cuenta" class="btn btn-success btn-lg btn-verificar w-100">Crear cuenta</button>
 							</div>
+							
+							<div class="row mb-0" style="height: 0px !important;">
+								<div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-0" style="visibility: hidden;">
+									<!-- payment form -->
+									<div class="kr-embedded" kr-popin kr-form-token="<?php echo $formToken;?>">
+										<!-- custom hidden field -->
+										<input type="hidden" id="id_pedido_curso" name="acme-id" value=""/>
+										<input type="hidden" id="hidden_email" name="acme-email" value=""/>
+										<input type="hidden" id="hidden_password" name="acme-password" value=""/>
+										<input type="hidden" id="hidden_name" name="acme-name" value=""/>
+
+										<!-- payment form fields -->
+										<div class="kr-pan"></div>
+										<div class="kr-expiry"></div>
+										<div class="kr-security-code"></div>
+
+										<!-- payment form submit button -->
+										<button class="kr-payment-button"></button>
+
+										<!-- error zone -->
+										<div class="kr-form-error"></div>
+									</div>
+								</div>
+							</div>
                 		<?php echo form_close(); ?>
 					</div>
 				</div>
 			</div>
 		</main>
 
-		<div class="container py-3 pb-0">
-			<footer class="pt-4 my-md-5 pt-md-5 pb-0 border-top">
+		<div class="container py-3 pb-3">
+			<footer class="pt-4 my-md-5 pt-md-5 pb-5 border-top">
 				<div class="row">
 					<div class="col-12 col-md">
 						<img class="mb-2" src="<?php echo base_url("assets/images/logo_probusiness.png?ver=5.0.0"); ?>" alt="" height="60">
@@ -209,7 +270,7 @@
 				</div>
 			</footer>
 		</div>
-		
+
 		<div class="modal" id="modal-message" tabindex="-1">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -223,6 +284,7 @@
 				</div>
 			</div>
 		</div>
+
 	</body>
 
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
@@ -238,6 +300,6 @@
 
 	  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <script src="<?php echo base_url("assets/js/inicio_curso_registro.js?ver=85.0.3"); ?>"></script>
+    <script src="<?php echo base_url("assets/js/inicio_curso_registro.js?ver=84.0.3"); ?>"></script>
   </body>
 </html>

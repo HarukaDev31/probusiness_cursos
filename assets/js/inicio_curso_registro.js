@@ -112,26 +112,15 @@ $(document).ready(function () {
         $('#btn-crear_cuenta').html('Crear cuenta');
 
         if(response.status=='success') {
-          $(".kr-popin-button").click();
-          
           $('#id_pedido_curso').val(response.result.id);
           $('#hidden_email').val(response.result.email);
           $('#hidden_password').val(response.result.password);
           $('#hidden_name').val(response.result.name);
 
-          let config = {
-            "merchant": {
-              "header": {
-                "image": {
-                  "type": "logo",
-                  "visibility": true,
-                  "src": base_url + "/assets/img/probusiness_isotipo.jpeg"
-                }
-              }
-            }
-          };
-          
-          KR.setFormConfig(config);
+          $('#modal-message').modal('show');
+          $('#modal-title').html(response.message);
+
+          setTimeout(function () { $('#modal-message').modal('hide'); }, 6200);
         } else {
           $('#modal-message').modal('show');
           $('#modal-title').html(response.message);

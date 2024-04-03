@@ -32,9 +32,66 @@ class Curso extends CI_Controller {
 			$_SESSION['distrito'] = $this->CursoModel->getDistrito();
 		}
 
+		/* cargando izipay */
+		
+		/* Username, password and endpoint used for server to server web-service calls */
+		//(En el Back Office) Copiar Usuario
+		Lyra\Client::setDefaultUsername("78655451");
+		
+		//(En el Back Office) Copiar Contraseña de test
+		//Lyra\Client::setDefaultPassword("testpassword_cC71d22bmbbkpXlhKVzxy3BVG1FZm7Z4ILlTKL3lZDB4o");
+		//(En el Back Office) Copiar Contraseña de producción
+		Lyra\Client::setDefaultPassword("prodpassword_sYm6SzBGdM2XIgf3COOOclUcbOTcaYTt3iZlz1WcDdSD7");
+
+		//(En el Back Office) Copiar Contraseña de Nombre del servidor API REST
+		Lyra\Client::setDefaultEndpoint("https://api.micuentaweb.pe");
+
+		/* publicKey and used by the javascript client */
+		//(En el Back Office) Copiar Clave pública de test
+		//Lyra\Client::setDefaultPublicKey("78655451:testpublickey_07vuSHY0ErsDxStV4VSfZfiPrIKXMg4ZAM7WWzYSqYUoL");
+		//(En el Back Office) Copiar Clave pública de produccion
+		Lyra\Client::setDefaultPublicKey("78655451:publickey_U2z6srU6cQGJPbbJwm6ssrpyiWdE1ZAom4AYgjcXwkUlm");
+
+		/* SHA256 key */
+		//(En el Back Office) Clave HMAC-SHA-256 de test
+		//Lyra\Client::setDefaultSHA256Key("G6pEoysq3vLZBpOYSfY7ZInsXS2o6OHodOd40Q8BjhnDU");
+		//(En el Back Office) Clave HMAC-SHA-256 de produccion
+		Lyra\Client::setDefaultSHA256Key("KhHFiouLSgCFB9gsRzafqcwpppQlY6YzzxXwTTLU4mG5S");
+
+		$client = new Lyra\Client();
+
+		$store = array(
+			"amount" => 159 * 100,
+			//"amount" => 109 * 100,
+			"currency" => "PEN",
+			"orderId" => uniqid("MyOrderId"),
+		);
+		$response = $client->post("V4/Charge/CreatePayment", $store);
+
+		/* I check if there are some errors */
+		if ($response['status'] != 'SUCCESS') {
+			/* an error occurs, I throw an exception */
+			//display_error($response);
+			$error = $response['answer'];
+			//throw new Exception("error " . $error['errorCode'] . ": " . $error['errorMessage'] );
+			$response_izipay = array(
+				'status' => 'error',
+				'message' => $error['errorMessage'],
+				'code_error' => $error['errorCode'],
+			);
+			echo json_encode($response_izipay);
+			exit();
+		}
+
+		/* everything is fine, I extract the formToken */
+		$formToken = $response["answer"]["formToken"];
+		/* fin izipay */
+
 		$this->load->view('Curso/Registro',
 			array(
-				'arrPais' => $arrPais
+				'arrPais' => $arrPais,
+				'client' => $client,
+				'formToken' => $formToken
 			)
 		);
 	}

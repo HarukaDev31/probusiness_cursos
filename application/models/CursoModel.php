@@ -117,10 +117,10 @@ class CursoModel extends CI_Model{
         $pedido_curso = array(
             'ID_Empresa'                => 1,
             'ID_Organizacion'           => 1,
-            'Nu_Estado'                 => 1,
-            'Nu_Estado_Usuario_Externo' => 1,
+            'Nu_Estado'                 => 2,//2=confirmado
+            'Nu_Estado_Usuario_Externo' => 3,
             //'Ss_Total' => 109,
-            'Ss_Total' => 159,
+            'Ss_Total' => 0,
             'ID_Pais' => $arrPost['cbo-pais'],
             'ID_Entidad' => $ID_Entidad,
             'Fe_Emision' => dateNow('fecha'),
