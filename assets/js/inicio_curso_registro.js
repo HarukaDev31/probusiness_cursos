@@ -1,4 +1,26 @@
 $(document).ready(function () {
+  var fToday = new Date(), fYear = '1930', fMonth = fToday.getMonth() + 1, fDay = fToday.getDate();
+  $('#datepicker').datepicker({
+    autoclose : true,
+    startDate : new Date(fYear, fToday.getMonth(), fDay),
+    todayHighlight  : true,
+    dateFormat: 'dd/mm/yyyy',
+    format: 'dd/mm/yyyy',
+  });
+
+  if (fMonth < 10)
+    fMonth = '0' + fMonth;
+  $('#datepicker').datepicker().children('input').val(fDay + '/' + fMonth + '/' + fYear);
+  
+  $('#div-otros_red_social').hide();
+  $('input[type=radio][name=radioRedSocial]').change(function() {
+    $('#div-otros_red_social').hide();
+    if (this.value == '8') {
+      $('#div-otros_red_social').show();
+      //alert('otros');
+    }
+  });
+
   const iSetinitialCountry = "pe";
   $("#celular").intlTelInput({
     initialCountry: iSetinitialCountry,
@@ -61,10 +83,14 @@ $(document).ready(function () {
       email.focus();
       email.closest('.form-group').find('.help-block').html('Email inválido');
       email.closest('.form-group').addClass('text-success').removeClass('text-danger');
-    } else if (celular.val().length === 0) {
+    } else if (celular.val().length < 8) {
       celular.focus();
       celular.closest('.form-group').find('.help-block').html('Ingresar celular');
       celular.closest('.form-group').removeClass('text-success').addClass('text-danger');
+    } else if ($('#cbo-tipo_documento_identidad').val() == null || $('#cbo-tipo_documento_identidad').val()=='') {
+      $('#cbo-tipo_documento_identidad').focus();
+      $('#cbo-tipo_documento_identidad').closest('.form-group').find('.help-block').html('Seleccionar');
+      $('#cbo-tipo_documento_identidad').closest('.form-group').removeClass('text-success').addClass('text-danger');
     } else if (dni.val().length === 0) {
       dni.focus();
       dni.closest('.form-group').find('.help-block').html('Ingresar documento');
@@ -73,14 +99,18 @@ $(document).ready(function () {
       name.focus();
       name.closest('.form-group').find('.help-block').html('Ingresar nombres');
       name.closest('.form-group').removeClass('text-success').addClass('text-danger');
-    } else if (edad.val().length === 0) {
-      edad.focus();
-      edad.closest('.form-group').find('.help-block').html('Ingresar');
-      edad.closest('.form-group').removeClass('text-success').addClass('text-danger');
     } else if ($('input[name="radioSexo"]:checked').val() === undefined ) {
       $('input[name="radioSexo"]').focus();
       $('input[name="radioSexo"]').closest('.form-group').find('.help-block').html('Elegir sexo');
       $('input[name="radioSexo"]').closest('.form-group').removeClass('text-success').addClass('text-danger');
+    } else if ($('input[name="radioRedSocial"]:checked').val() === undefined ) {
+      $('input[name="radioRedSocial"]').focus();
+      $('input[name="radioRedSocial"]').closest('.form-group').find('.help-block').html('Elegir Red Social');
+      $('input[name="radioRedSocial"]').closest('.form-group').removeClass('text-success').addClass('text-danger');
+    } else if ($('input[name="radioRedSocial"]:checked').val() == 8 &&  $('#otros_red_social').val().length === 0 ) {
+      $('#otros_red_social').focus();
+      $('#otros_red_social').closest('.form-group').find('.help-block').html('Ingresar dato');
+      $('#otros_red_social').closest('.form-group').removeClass('text-success').addClass('text-danger');
     } else if ($('#cbo-pais').val() == 0) {
       $('#cbo-pais').focus();
       $('#cbo-pais').closest('.form-group').find('.help-block').html('Seleccionar');

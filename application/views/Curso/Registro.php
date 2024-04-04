@@ -29,6 +29,8 @@
 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css">
 
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
 		<meta name="theme-color" content="#FF6700">
 		<meta name="msapplication-navbutton-color" content="#FF6700"/>
 		<meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -51,17 +53,15 @@
 							</div>
 							
 							<div class="row">
-								<div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+								<div class="col-12 col-sm-12 col-md-12 col-lg-7 mb-3">
 									<label class="fw-bold mb-2" for="floatEmail">Email</label>
 									<div class="form-group">
 										<input type="email" inputmode="email" class="form-control" id="email" name="email" placeholder="">
 										<span class="help-block text-danger" id="error"></span>
 									</div>
 								</div>
-							</div>
 
-							<div class="row">
-								<div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
+								<div class="col-12 col-sm-6 col-md-6 col-lg-5 mb-3">
                   					<input type="hidden" value="51" id="codigo_pais" name="codigo_pais" class="form-control">
 									<label for="celular" class="fw-bold mb-2">Celular</label>
 									<div class="form-group">
@@ -70,8 +70,24 @@
 									</div>
 								</div>
 
+								<div class="col-12 col-sm-4 col-md-6 col-lg-6 mb-4">
+									<label class="fw-bold mb-2">T. Doc. Ident.</label>
+									<div class="form-group">
+										<select name="cbo-tipo_documento_identidad" id="cbo-tipo_documento_identidad" class="form-select form-select-md mb-3" aria-label=".form-select-lg example">
+											<option value="0" disabled selected="selected"  style="color: #f2f2f2 !important">- Seleccionar -</option>
+											<option value="2" data-nu_cantidad_caracteres="8">DNI</option>
+											<option value="4" data-nu_cantidad_caracteres="11">RUC</option>
+											<option value="5" data-nu_cantidad_caracteres="12">PASAPORTE</option>
+											<option value="1" data-nu_cantidad_caracteres="15">OTROS</option>
+											<option value="3" data-nu_cantidad_caracteres="12">CARNET EXTRANJERIA</option>
+											<option value="6" data-nu_cantidad_caracteres="15">CEDULA DIPLO. IDENTI</option>
+										</select>
+										<span class="help-block text-danger" id="error"></span>
+									</div>
+								</div>
+
 								<div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
-									<label for="dni" class="fw-bold mb-2">DNI / RUC / OTROS</label>
+									<label for="dni" class="fw-bold mb-2">Nro. Doc. Ident.</label>
 									<div class="form-group">
 										<input type="text" class="form-control input-number_letter" id="dni" name="dni" placeholder="">
 										<span class="help-block text-danger" id="error"></span>
@@ -88,7 +104,16 @@
 							</div>
 
 							<div class="row">
-								<div class="col-3 col-sm-4 col-md-4 col-lg-4 mb-3">
+								<div class="col-12 col-sm-5 col-md-5 col-lg-5 mb-3">
+									<label for="edad" class="fw-bold mb-2">F. Nacimiento</label>
+									<div class="input-group date" id="datepicker">
+									<input type="text" class="form-control" id="date" name="date" style="border-top: 0;border-left: 0;border-right: 0;" value="<?php echo dateNow('month_date_report_crud'); ?>" placeholder="Fecha de Viaje" />
+									<span class="input-group-append"></span>
+									</div>
+									<span class="help-block text-danger" id="error"></span>
+								</div>
+
+								<div class="col-3 col-sm-4 col-md-4 col-lg-4 mb-3 d-none">
 									<label for="edad" class="fw-bold mb-2">Edad</label>
 									<div class="form-group">
 										<input type="text" inputmode="numeric" class="form-control input-number" id="edad" name="edad" placeholder="">
@@ -96,7 +121,7 @@
 									</div>
 								</div>
 							
-								<div class="col-9 col-sm-8 col-md-8 col-lg-8 mb-3">
+								<div class="col-12 col-sm-7 col-md-7 col-lg-7 mb-3">
 									<label for="radioSexo" class="fw-bold mb-2">Sexo</label>
 									<div class="form-group">
 										<div>
@@ -113,6 +138,55 @@
 												<label style="cursor: pointer" class="form-check-label" for="radioSexoO">Otros</label>
 											</div>
 										</div>
+										<span class="help-block text-danger" id="error"></span>
+									</div>
+								</div>
+								
+								<div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+									<label for="radioSexo" class="fw-bold mb-2">¿Como te enteraste de nosotros?</label>
+									<div class="form-group">
+										<div>
+											<div class="form-check form-check-inline me-1 me-sm-3">
+												<input style="cursor: pointer" class="form-check-input" type="radio" name="radioRedSocial" id="radioRedSocial1" value="1">
+												<label style="cursor: pointer" class="form-check-label" for="radioRedSocial1">Tiktok</label>
+											</div><br>
+											<div class="form-check form-check-inline me-1 me-sm-3">
+												<input style="cursor: pointer" class="form-check-input" type="radio" name="radioRedSocial" id="radioRedSocial2" value="2">
+												<label style="cursor: pointer" class="form-check-label" for="radioRedSocial2">Facebook</label>
+											</div><br>
+											<div class="form-check form-check-inline me-1 me-sm-3">
+												<input style="cursor: pointer" class="form-check-input" type="radio" name="radioRedSocial" id="radioRedSocial3" value="3">
+												<label style="cursor: pointer" class="form-check-label" for="radioRedSocial3">Instagram</label>
+											</div><br>
+											<div class="form-check form-check-inline me-1 me-sm-3">
+												<input style="cursor: pointer" class="form-check-input" type="radio" name="radioRedSocial" id="radioRedSocial4" value="4">
+												<label style="cursor: pointer" class="form-check-label" for="radioRedSocial4">Youtube</label>
+											</div><br>
+											<div class="form-check form-check-inline me-1 me-sm-3">
+												<input style="cursor: pointer" class="form-check-input" type="radio" name="radioRedSocial" id="radioRedSocial5" value="5">
+												<label style="cursor: pointer" class="form-check-label" for="radioRedSocial5">Familiares/Amigos</label>
+											</div><br>
+											<div class="form-check form-check-inline me-1 me-sm-3">
+												<input style="cursor: pointer" class="form-check-input" type="radio" name="radioRedSocial" id="radioRedSocial6" value="6">
+												<label style="cursor: pointer" class="form-check-label" for="radioRedSocial6">LinkedIn</label>
+											</div><br>
+											<div class="form-check form-check-inline me-1 me-sm-3">
+												<input style="cursor: pointer" class="form-check-input" type="radio" name="radioRedSocial" id="radioRedSocial7" value="7">
+												<label style="cursor: pointer" class="form-check-label" for="radioRedSocial7">Google</label>
+											</div><br>
+											<div class="form-check form-check-inline me-1 me-sm-3">
+												<input style="cursor: pointer" class="form-check-input" type="radio" name="radioRedSocial" id="radioRedSocial8" value="8">
+												<label style="cursor: pointer" class="form-check-label" for="radioRedSocial8">Otros</label>
+											</div>
+										</div>
+										<span class="help-block text-danger" id="error"></span>
+									</div>
+								</div>
+								
+								<div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3" id="div-otros_red_social">
+									<label for="name" class="fw-bold mb-2">Otros</label>
+									<div class="form-group">
+										<input type="text" class="form-control" id="otros_red_social" name="otros_red_social" placeholder="">
 										<span class="help-block text-danger" id="error"></span>
 									</div>
 								</div>
@@ -236,8 +310,10 @@
 	
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput-jquery.min.js"></script>
 
-	  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <script src="<?php echo base_url("assets/js/inicio_curso_registro.js?ver=86.0.3"); ?>"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+	
+    <script src="<?php echo base_url("assets/js/inicio_curso_registro.js?ver=88.0.3"); ?>"></script>
   </body>
 </html>

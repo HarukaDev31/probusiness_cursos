@@ -27,6 +27,7 @@ class CursoModel extends CI_Model{
         $sNombreEntidad = trim($arrPost['name']);
         $sNumeroDocumentoIdentidad = trim($arrPost['dni']);
         
+        /*
         if ( strlen($sNumeroDocumentoIdentidad) == 8 ) {
             $iTipoDocumentoIdentidad = '2';//2=DNI
             $sTipoDocumentoIdentidad = 'RUC';
@@ -40,6 +41,7 @@ class CursoModel extends CI_Model{
             $iTipoDocumentoIdentidad = '1';//1=OTROS
             $sTipoDocumentoIdentidad = 'OTROS';
         }
+        */
 
         $query = "SELECT ID_Entidad FROM entidad WHERE ID_Empresa = 1 AND Nu_Tipo_Entidad = 0 AND Txt_Email_Entidad = '" . $arrPost['email'] . "' LIMIT 1";
         $objVerificarCliente = $this->db->query($query)->row();
@@ -50,7 +52,8 @@ class CursoModel extends CI_Model{
                 'ID_Empresa' => 1,
                 'ID_Organizacion' => 1,
                 'Nu_Tipo_Entidad' => 0,//0=Cliente
-                'ID_Tipo_Documento_Identidad' => $iTipoDocumentoIdentidad,
+                //'ID_Tipo_Documento_Identidad' => $iTipoDocumentoIdentidad,
+                'ID_Tipo_Documento_Identidad' => $arrPost['cbo-tipo_documento_identidad'],
                 'Nu_Documento_Identidad' => $sNumeroDocumentoIdentidad,
                 'No_Entidad' => $sNombreEntidad,
                 'Nu_Estado' => 1,
@@ -63,7 +66,10 @@ class CursoModel extends CI_Model{
                 'ID_Departamento' => $arrPost['cbo-departamento'],
                 'ID_Provincia' => $arrPost['cbo-provincia'],
                 'ID_Distrito' => $arrPost['cbo-distrito'],
-                'Nu_Curso' => 1
+                'Nu_Curso' => 1,
+                'Fe_Nacimiento' => ToDate($arrPost['date']),
+                'Nu_Como_Entero_Empresa' => $arrPost['radioRedSocial'],
+                'No_Otros_Como_Entero_Empresa' => $arrPost['otros_red_social'],
             );
 
             $this->db->insert('entidad', $arrCliente);
@@ -97,6 +103,7 @@ class CursoModel extends CI_Model{
                 'No_IP'					=> $this->input->ip_address(),
                 'Nu_Estado'				=> 1,
                 'ID_Entidad'			=> $ID_Entidad,
+                'Nu_Celular'            => $arrPost['celular'],
             );
 
             $this->db->insert('usuario', $usuario);
