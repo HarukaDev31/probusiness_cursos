@@ -117,10 +117,12 @@ $(document).ready(function () {
           $('#hidden_password').val(response.result.password);
           $('#hidden_name').val(response.result.name);
 
-          $('#modal-message').modal('show');
-          $('#modal-title').html(response.message);
+          window.location = base_url + 'Curso/respuestaIzipay';
 
-          setTimeout(function () { $('#modal-message').modal('hide'); }, 6200);
+          //$('#modal-message').modal('show');
+          //$('#modal-title').html(response.message);
+
+          //setTimeout(function () { $('#modal-message').modal('hide'); }, 6200);
         } else {
           $('#modal-message').modal('show');
           $('#modal-title').html(response.message);

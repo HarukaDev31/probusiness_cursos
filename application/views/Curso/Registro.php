@@ -238,6 +238,6 @@
 
 	  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <script src="<?php echo base_url("assets/js/inicio_curso_registro.js?ver=85.0.3"); ?>"></script>
+    <script src="<?php echo base_url("assets/js/inicio_curso_registro.js?ver=86.0.3"); ?>"></script>
   </body>
 </html>

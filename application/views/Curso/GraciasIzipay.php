@@ -6,14 +6,14 @@
 		<meta name="author" content="Geancarlos collazos, escala tu startup y automatiza tú negocio">
 		<meta name="generator" content="">
 		
-		<link rel="shortcut icon" href="<?php echo base_url("assets/images/favicon/favicon.ico?ver=5.0"); ?>">
-		<link rel="apple-touch-icon-precomposed" sizes="192x192" href="<?php echo base_url("assets/images/favicon/android-chrome-512x512.png?ver=5.0"); ?>">
-		<link rel="apple-touch-icon-precomposed" sizes="192x192" href="<?php echo base_url("assets/images/favicon/android-chrome-192x192.png?ver=5.0"); ?>">
-		<link rel="apple-touch-icon-precomposed" sizes="32x32" href="<?php echo base_url("assets/images/favicon/favicon-32x32.png?ver=5.0"); ?>">
-		<link rel="apple-touch-icon-precomposed" sizes="16x16" href="<?php echo base_url("assets/images/favicon/favicon-16x16.png?ver=5.0"); ?>">
-		<link rel="apple-touch-icon-precomposed" sizes="16x16" href="<?php echo base_url("assets/images/favicon/apple-touch-icon.png?ver=5.0"); ?>">
-		<link rel="shortcut icon" href="<?php echo base_url("assets/images/favicon/favicon.png?ver=5.0.0"); ?>" type="image/png">
-	  	<link rel="icon" href="<?php echo base_url("assets/images/favicon/favicon.png?ver=5.0.0"); ?>" type="image/png">
+		<link rel="shortcut icon" href="<?php echo base_url("assets/images/favicon.ico?ver=5.0"); ?>">
+		<link rel="apple-touch-icon-precomposed" sizes="192x192" href="<?php echo base_url("assets/images/android-chrome-512x512.png?ver=5.0"); ?>">
+		<link rel="apple-touch-icon-precomposed" sizes="192x192" href="<?php echo base_url("assets/images/android-chrome-192x192.png?ver=5.0"); ?>">
+		<link rel="apple-touch-icon-precomposed" sizes="32x32" href="<?php echo base_url("assets/images/favicon-32x32.png?ver=5.0"); ?>">
+		<link rel="apple-touch-icon-precomposed" sizes="16x16" href="<?php echo base_url("assets/images/favicon-16x16.png?ver=5.0"); ?>">
+		<link rel="apple-touch-icon-precomposed" sizes="16x16" href="<?php echo base_url("assets/images/apple-touch-icon.png?ver=5.0"); ?>">
+		<link rel="shortcut icon" href="<?php echo base_url("assets/images/favicon.png?ver=5.0.0"); ?>" type="image/png">
+	  	<link rel="icon" href="<?php echo base_url("assets/images/favicon.png?ver=5.0.0"); ?>" type="image/png">
 		
 		<title>ProBusiness | Curso de Importación</title>
 
@@ -60,7 +60,7 @@
 						<ul class="list-unstyled text-small">
 						<li class="mb-3"><a class="link-secondary text-decoration-none" href="#">Nosotros</a></li>
 						<li class="mb-3"><a class="link-secondary text-decoration-none" href="#">Política de Privacidad</a></li>
-						<li class="mb-3"><a class="link-secondary text-decoration-none" href=""terminos">Términos y condiciones</a></li>
+						<li class="mb-3"><a class="link-secondary text-decoration-none" href="#">Términos y condiciones</a></li>
 						</ul>
 					</div>
 					<div class="col-6 col-md">
